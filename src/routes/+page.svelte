@@ -82,19 +82,21 @@
 	</div>
 {/if}
 
-<div
-	role="button"
-	tabindex="0"
-	onclick={(e) => handleClick(e, lines[0])}
-	onkeydown={(e) => {
-		if (e.key === "Enter" || e.key === " ") {
-			e.preventDefault();
-			handleClick(e, lines[0]);
-		}
-	}}
-	class="mr-12 mb-8 place-self-center text-4xl"
->
-	{lines[0].headingText}
+<div class="flex justify-center">
+	<div
+		role="button"
+		tabindex="0"
+		onclick={(e) => handleClick(e, lines[0])}
+		onkeydown={(e) => {
+			if (e.key === "Enter" || e.key === " ") {
+				e.preventDefault();
+				handleClick(e, lines[0]);
+			}
+		}}
+		class="mr-12 mb-8 text-4xl"
+	>
+		{lines[0].headingText}
+	</div>
 </div>
 
 <div dir="rtl" lang="fa" class="flex flex-col place-items-center gap-4 text-lg">
