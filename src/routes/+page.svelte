@@ -63,13 +63,13 @@
 		style="top: {tooltipPos.top}px; left: {tooltipPos.left}px"
 		class="absolute z-10 w-64 -translate-x-1/2 rounded-md border border-gray-600 bg-gray-200 px-2.5 py-2 text-sm"
 	>
-		<div>
+		<div class="mb-1">
 			Vol. <code class="text-pink-800">{selectedLine.volumeNumber}</code>, pg.
 			<code class="text-pink-800">{selectedLine.pageNumber}</code>, line
 			<code class="text-pink-800">{selectedLine.numberWithinPage}</code> (relative)
 		</div>
 
-		<div>
+		<div class="flex">
 			<a
 				href="https://read.akvan.dev/km/{selectedLine.volumeNumber}/{selectedLine.pageNumber}"
 				target="_blank"
@@ -78,6 +78,8 @@
 			>
 				View page image
 			</a>
+
+			<span class="ml-auto italic">Esc to clear</span>
 		</div>
 	</div>
 {/if}
