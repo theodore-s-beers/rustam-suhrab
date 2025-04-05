@@ -61,7 +61,7 @@
 	<div
 		role="tooltip"
 		style="top: {tooltipPos.top}px; left: {tooltipPos.left}px"
-		class="absolute z-10 w-64 -translate-x-1/2 rounded-md border border-gray-600 bg-gray-200 px-2.5 py-2 text-sm"
+		class="absolute z-10 w-[17rem] -translate-x-1/2 rounded-md border border-gray-600 bg-gray-200 px-2.5 py-2 text-sm"
 	>
 		<div class="mb-1">
 			Vol. <code class="text-pink-800">{selectedLine.volumeNumber}</code>, pg.
@@ -131,7 +131,7 @@
 							handleClick(e, line);
 						}
 					}}
-					class="ml-16 w-64 [text-align-last:justify]"
+					class="ml-16 w-[17rem] [text-align-last:justify]"
 				>
 					{line.hemistichOne.text}<span class="text-green-700">
 						{line.hemistichOne.hasNotes ? "*" : ""}
@@ -147,7 +147,7 @@
 							handleClick(e, line);
 						}
 					}}
-					class="w-64 [text-align-last:justify]"
+					class="w-[17rem] [text-align-last:justify]"
 				>
 					{line.hemistichTwo.text}<span class="text-green-700">
 						{line.hemistichTwo.hasNotes ? "*" : ""}
