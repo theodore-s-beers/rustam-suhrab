@@ -95,7 +95,7 @@
 				handleClick(e, lines[0]);
 			}
 		}}
-		class="mr-12 mb-8 text-4xl"
+		class="mr-10 mb-8 text-4xl"
 	>
 		{lines[0].headingText}
 	</div>
@@ -114,7 +114,7 @@
 						handleClick(e, line);
 					}
 				}}
-				class="mt-4 mr-12 mb-6 text-3xl"
+				class="mt-4 mr-10 mb-6 text-3xl"
 			>
 				{line.headingText}
 			</div>
@@ -133,9 +133,7 @@
 					}}
 					class="ml-16 w-[17rem] [text-align-last:justify]"
 				>
-					{line.hemistichOne.text}<span class="text-green-700">
-						{line.hemistichOne.hasNotes ? "*" : ""}
-					</span>
+					{line.hemistichOne.text}
 				</div>
 				<div
 					role="button"
@@ -149,9 +147,10 @@
 					}}
 					class="w-[17rem] [text-align-last:justify]"
 				>
-					{line.hemistichTwo.text}<span class="text-green-700">
-						{line.hemistichTwo.hasNotes ? "*" : ""}
-					</span>
+					{line.hemistichTwo.text}
+				</div>
+				<div class="w-2 text-left text-xs text-green-700">
+					{line.hemistichOne.hasNotes || line.hemistichTwo.hasNotes ? "ح" : ""}
 				</div>
 			</div>
 		{/if}
