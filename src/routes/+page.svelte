@@ -61,7 +61,7 @@
 	<div
 		role="tooltip"
 		style="top: {tooltipPos.top}px; left: {tooltipPos.left}px"
-		class="absolute z-10 w-[17rem] -translate-x-1/2 rounded-md border border-gray-600 bg-gray-200 px-2.5 py-2 text-sm"
+		class="absolute z-10 w-64 -translate-x-1/2 rounded-md border border-gray-600 bg-gray-200 px-2.5 py-2 font-sans text-sm"
 	>
 		<div class="mb-1">
 			Vol. <code class="text-pink-800">{selectedLine.volumeNumber}</code>, pg.
@@ -120,7 +120,7 @@
 			</div>
 		{:else}
 			<div class="flex gap-2">
-				<div class="w-12">{line.numberListed?.toLocaleString("fa")}</div>
+				<div class="w-12">{line.numberListed?.toLocaleString("fa", { useGrouping: false })}</div>
 				<div
 					role="button"
 					tabindex="0"
@@ -131,7 +131,7 @@
 							handleClick(e, line);
 						}
 					}}
-					class="ml-16 w-[17rem] [text-align-last:justify]"
+					class="ml-14 w-64 font-medium [text-align-last:justify]"
 				>
 					{line.hemistichOne.text}
 				</div>
@@ -145,7 +145,7 @@
 							handleClick(e, line);
 						}
 					}}
-					class="w-[17rem] [text-align-last:justify]"
+					class="w-64 font-medium [text-align-last:justify]"
 				>
 					{line.hemistichTwo.text}
 				</div>
