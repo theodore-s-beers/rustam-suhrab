@@ -150,7 +150,7 @@
 					{line.hemistichTwo.text}
 				</div>
 				<div class="w-2 text-left text-xs text-green-700">
-					{line.hemistichOne.hasNotes || line.hemistichTwo.hasNotes ? "ح" : ""}
+					{line.hemistichOne.hasNotes || line.hemistichTwo.hasNotes ? "پ" : ""}
 				</div>
 			</div>
 		{/if}
