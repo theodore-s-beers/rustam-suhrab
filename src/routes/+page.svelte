@@ -44,6 +44,17 @@
 </script>
 
 <svelte:head>
+	<meta
+		name="description"
+		content="A digital version of the story of Rustam and Suhrab, following the edition of Khaleghi-Motlagh"
+	/>
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://www.theobeers.com/rustam-suhrab/" />
+	<meta property="og:image" content="https://www.theobeers.com/rustam-suhrab/og.jpg" />
+	<meta property="og:title" content="داستان رستم و سهراب" />
+	<meta name="twitter:title" content="داستان رستم و سهراب" />
+	<meta name="twitter:card" content="summary_large_image" />
+
 	<title>{lines[0].headingText}</title>
 </svelte:head>
 
