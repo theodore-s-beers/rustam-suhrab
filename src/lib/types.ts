@@ -3,14 +3,10 @@ export interface ReturnLine {
 	pageNumber: number;
 	numberWithinPage: number;
 	editor: string;
-	heading: boolean;
-	headingText?: string;
+	isHeading: boolean;
+	hasNotes: boolean;
 	numberListed?: number;
-	hemistichOne: Hemistich;
-	hemistichTwo: Hemistich;
-}
-
-interface Hemistich {
-	text?: string;
-	hasNotes?: boolean;
+	headingText?: string;
+	hemistichOne?: string;
+	hemistichTwo?: string;
 }

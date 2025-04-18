@@ -114,7 +114,7 @@
 
 <div dir="rtl" lang="fa" class="flex flex-col place-items-center gap-4 text-lg">
 	{#each lines as line, i (`${line.volumeNumber}-${line.pageNumber}-${line.numberWithinPage}`)}
-		{#if line.heading && i !== 0}
+		{#if line.isHeading && i !== 0}
 			<div
 				role="button"
 				tabindex="0"
@@ -144,7 +144,7 @@
 					}}
 					class="ml-14 w-64 font-medium [text-align-last:justify]"
 				>
-					{line.hemistichOne.text}
+					{line.hemistichOne}
 				</div>
 				<div
 					role="button"
@@ -158,10 +158,10 @@
 					}}
 					class="w-64 font-medium [text-align-last:justify]"
 				>
-					{line.hemistichTwo.text}
+					{line.hemistichTwo}
 				</div>
 				<div class="w-2 text-left text-xs text-green-700">
-					{line.hemistichOne.hasNotes || line.hemistichTwo.hasNotes ? "پ" : ""}
+					{line.hasNotes ? "پ" : ""}
 				</div>
 			</div>
 		{/if}
