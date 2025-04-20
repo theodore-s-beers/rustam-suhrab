@@ -114,7 +114,7 @@
 
 <div dir="rtl" lang="fa" class="flex flex-col place-items-center gap-4 text-lg">
 	{#each lines as line, i (`${line.volumeNumber}-${line.pageNumber}-${line.numberWithinPage}`)}
-		{#if line.isHeading && i !== 0}
+		{#if line.isHeading && i > 0}
 			<div
 				role="button"
 				tabindex="0"
@@ -129,7 +129,7 @@
 			>
 				{line.headingText}
 			</div>
-		{:else}
+		{:else if i > 0}
 			<div class="flex gap-2">
 				<div class="w-12">{line.numberListed?.toLocaleString("fa", { useGrouping: false })}</div>
 				<div
