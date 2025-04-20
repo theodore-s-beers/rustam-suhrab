@@ -106,7 +106,7 @@
 				handleClick(e, lines[0]);
 			}
 		}}
-		class="mr-10 mb-8 text-4xl"
+		class="mr-10 mb-10 text-4xl"
 	>
 		{lines[0].headingText}
 	</div>
