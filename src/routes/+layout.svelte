@@ -3,6 +3,6 @@
 	let { children } = $props();
 </script>
 
-<div class="font-persian mx-auto p-4 pb-20">
+<div class="mx-auto p-4 pb-20 font-persian">
 	{@render children()}
 </div>
