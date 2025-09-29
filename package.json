@@ -40,6 +40,9 @@
 		"onlyBuiltDependencies": [
 			"@tailwindcss/oxide",
 			"esbuild"
-		]
+		],
+		"overrides": {
+			"cookie": "^1.0.2"
+		}
 	}
 }
