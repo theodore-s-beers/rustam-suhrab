@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
 	import type { ReturnLine } from "$lib/types";
 	import { sampleLines } from "$lib/sample";
+	import { SvelteURLSearchParams } from "svelte/reactivity";
 
 	let lines: ReturnLine[] = $state(sampleLines);
 
@@ -21,7 +22,7 @@
 	}
 
 	onMount(async () => {
-		const params = new URLSearchParams();
+		const params = new SvelteURLSearchParams();
 		params.append("start-vol", "2");
 		params.append("start-pg", "117");
 		params.append("start-line", "1");
