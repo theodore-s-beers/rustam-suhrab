@@ -33,7 +33,7 @@
 
 		try {
 			const res = await fetch(
-				`https://shahnama-transcription.pages.dev/api/transcribed-lines?${params.toString()}`,
+				`https://transcribe.akvan.dev/api/transcribed-lines?${params.toString()}`,
 			);
 			if (!res.ok) throw new Error(`${res.status}; ${await res.text()}`);
 			lines = await res.json();
