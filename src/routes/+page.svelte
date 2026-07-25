@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import type { ReturnLine } from "$lib/types";
-	import { sampleLines } from "$lib/sample";
+	import snapshotLines from "$lib/snapshot.json";
 	import { SvelteURLSearchParams } from "svelte/reactivity";
 
-	let lines: ReturnLine[] = $state(sampleLines);
+	let lines: ReturnLine[] = $state(snapshotLines as ReturnLine[]);
 
 	let selectedLine: ReturnLine | null = $state(null);
 	let tooltipPos = $state({ top: 0, left: 0 });
