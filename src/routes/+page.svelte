@@ -132,7 +132,7 @@
 					Vol.
 					<code class="text-pink-800">{selectedLine.volumeNumber}</code>, pg.
 					<code class="text-pink-800">{selectedLine.pageNumber}</code>, line
-					<code class="text-pink-800">{selectedLine.numberWithinPage}</code> (relative)
+					<code class="text-pink-800">{selectedLine.numberWithinPage}</code>
 				</span>
 
 				<span>
@@ -171,17 +171,17 @@
 {/if}
 
 <div dir="rtl" lang="fa" class="mb-10 flex justify-center">
-	<div class="text-4xl">{lines[0].headingText}</div>
+	<div class="mr-6 text-4xl">{lines[0].headingText}</div>
 </div>
 
 <div dir="rtl" lang="fa" class="flex flex-col place-items-center gap-4 text-lg">
 	{#each lines as line, i (`${line.volumeNumber}-${line.pageNumber}-${line.numberWithinPage}`)}
 		{#if line.isHeading && i > 0}
-			<div class="mt-4 mb-6 text-3xl">{line.headingText}</div>
+			<div class="mt-4 mr-6 mb-6 text-3xl">{line.headingText}</div>
 		{:else if i > 0}
 			<div class="flex gap-2">
 				<div class="w-12">{line.numberListed?.toLocaleString("fa", { useGrouping: false })}</div>
-				<div class="ml-14 w-64 font-medium [text-align-last:justify]">
+				<div class="ml-12 w-64 font-medium [text-align-last:justify]">
 					{line.hemistichOne}
 				</div>
 				<div class="w-64 font-medium [text-align-last:justify]">
