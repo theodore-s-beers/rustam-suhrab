@@ -177,7 +177,7 @@
 <div dir="rtl" lang="fa" class="flex flex-col place-items-center gap-4 text-lg">
 	{#each lines as line, i (`${line.volumeNumber}-${line.pageNumber}-${line.numberWithinPage}`)}
 		{#if line.isHeading && i > 0}
-			<div class="mt-4 mr-6 mb-6 text-3xl">{line.headingText}</div>
+			<div class="my-6 mr-6 text-3xl">{line.headingText}</div>
 		{:else if i > 0}
 			<div class="flex gap-2">
 				<div class="w-12">{line.numberListed?.toLocaleString("fa", { useGrouping: false })}</div>
