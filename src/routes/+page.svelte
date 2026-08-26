@@ -161,9 +161,6 @@
 				>
 					{line.hemistichTwo}
 				</div>
-				<div class="w-2 text-left text-xs text-green-700">
-					{line.hasNotes ? "پ" : ""}
-				</div>
 			</div>
 		{/if}
 	{/each}
