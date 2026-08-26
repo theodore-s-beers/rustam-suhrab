@@ -7,23 +7,43 @@
 	let lines: ReturnLine[] = $state(snapshotLines as ReturnLine[]);
 
 	let selectedLine: ReturnLine | null = $state(null);
-	let tooltipPos = $state({ top: 0, left: 0 });
+	let detailsTrigger: HTMLButtonElement | null = null;
 
-	function handleClick(event: Event, line: ReturnLine) {
-		const target = event.currentTarget as HTMLButtonElement;
-		const rect = target.getBoundingClientRect();
-		const tooltipHalfWidth = 128;
-		const tooltipMargin = 8;
-		const desiredLeft = rect.left + window.scrollX + rect.width / 2;
-		const minLeft = window.scrollX + tooltipHalfWidth + tooltipMargin;
-		const maxLeft = window.scrollX + window.innerWidth - tooltipHalfWidth - tooltipMargin;
+	function toggleLineDetails(event: Event, line: ReturnLine) {
+		if (selectedLine === line) {
+			selectedLine = null;
+			detailsTrigger = null;
+			return;
+		}
 
-		tooltipPos = {
-			top: rect.bottom + window.scrollY + 6,
-			left: Math.min(Math.max(desiredLeft, minLeft), Math.max(minLeft, maxLeft)),
-		};
+		detailsTrigger = event.currentTarget as HTMLButtonElement;
+		selectedLine = line;
+	}
 
-		selectedLine = selectedLine === line ? null : line;
+	function closeLineDetails() {
+		selectedLine = null;
+		detailsTrigger?.focus();
+		detailsTrigger = null;
+	}
+
+	function getStoryLineNumber(line: ReturnLine) {
+		let storyLineNumber = 0;
+
+		for (const candidate of lines) {
+			if (candidate.isHeading) continue;
+			storyLineNumber += 1;
+
+			if (
+				candidate.volumeNumber === line.volumeNumber &&
+				candidate.pageNumber === line.pageNumber &&
+				candidate.numberWithinPage === line.numberWithinPage &&
+				candidate.editor === line.editor
+			) {
+				return storyLineNumber;
+			}
+		}
+
+		return null;
 	}
 
 	onMount(async () => {
@@ -66,23 +86,19 @@
 
 <svelte:window
 	on:keydown={(e) => {
-		if (e.key === "Escape") {
-			selectedLine = null;
-			const focusedEl = document.activeElement;
-			if (focusedEl instanceof HTMLElement) focusedEl.blur();
-		}
+		if (e.key === "Escape" && selectedLine) closeLineDetails();
 	}}
 />
 
 {#snippet detailsButton(line: ReturnLine)}
 	<button
 		type="button"
-		onclick={(event) => handleClick(event, line)}
-		aria-label="Show line details"
+		onclick={(event) => toggleLineDetails(event, line)}
+		aria-label={selectedLine === line ? "Hide line details" : "Show line details"}
 		aria-expanded={selectedLine === line}
 		aria-controls="line-details"
-		title="Show line details"
-		class="flex size-5 shrink-0 items-center justify-center self-center rounded-full text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500 aria-expanded:bg-gray-200 aria-expanded:text-gray-700"
+		title={selectedLine === line ? "Hide line details" : "Show line details"}
+		class="ms-0.5 flex size-5 shrink-0 cursor-pointer items-center justify-center self-center rounded-full text-gray-400 transition-[color,background-color,box-shadow] hover:bg-gray-200 hover:text-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500 aria-expanded:bg-blue-100 aria-expanded:text-blue-700 aria-expanded:shadow-[0_0_5px_1px_rgba(147,197,253,0.5)] aria-expanded:hover:bg-blue-100 aria-expanded:hover:text-blue-700"
 	>
 		<svg
 			viewBox="0 0 20 20"
@@ -99,31 +115,59 @@
 {/snippet}
 
 {#if selectedLine}
-	<div
+	<aside
 		id="line-details"
-		role="tooltip"
-		style="top: {tooltipPos.top}px; left: {tooltipPos.left}px"
-		class="absolute z-10 w-64 -translate-x-1/2 rounded-md border border-gray-600 bg-gray-200 px-2.5 py-2 font-sans text-sm"
+		aria-label="Line details"
+		aria-live="polite"
+		class="fixed inset-x-0 bottom-0 z-10 border-t border-gray-300 bg-gray-50/95 shadow-[0_-4px_16px_rgba(0,0,0,0.12)] backdrop-blur-sm"
 	>
-		<div class="mb-1">
-			Vol. <code class="text-pink-800">{selectedLine.volumeNumber}</code>, pg.
-			<code class="text-pink-800">{selectedLine.pageNumber}</code>, line
-			<code class="text-pink-800">{selectedLine.numberWithinPage}</code> (relative)
-		</div>
+		<div class="mx-auto flex max-w-3xl items-center gap-4 px-4 py-3 font-sans text-sm">
+			<div class="flex min-w-0 flex-1 flex-wrap items-center gap-x-2 gap-y-1">
+				<span
+					>Line <code class="text-pink-800">{getStoryLineNumber(selectedLine)}</code> (in-story)</span
+				>
 
-		<div class="flex">
-			<a
-				href="https://read.akvan.dev/km/{selectedLine.volumeNumber}/{selectedLine.pageNumber}"
-				target="_blank"
-				rel="noreferrer"
-				class="text-blue-800 hover:underline"
+				<span>
+					<span aria-hidden="true" class="me-2 font-bold text-gray-500">•</span>
+					Vol.
+					<code class="text-pink-800">{selectedLine.volumeNumber}</code>, pg.
+					<code class="text-pink-800">{selectedLine.pageNumber}</code>, line
+					<code class="text-pink-800">{selectedLine.numberWithinPage}</code> (relative)
+				</span>
+
+				<span>
+					<span aria-hidden="true" class="me-2 font-bold text-gray-500">•</span>
+					<a
+						href="https://read.akvan.dev/km/{selectedLine.volumeNumber}/{selectedLine.pageNumber}"
+						target="_blank"
+						rel="noreferrer"
+						class="text-blue-800 hover:underline"
+					>
+						View page image
+					</a>
+				</span>
+			</div>
+
+			<button
+				type="button"
+				onclick={closeLineDetails}
+				aria-label="Close line details"
+				title="Close line details"
+				class="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500"
 			>
-				View page image
-			</a>
-
-			<span class="ml-auto italic">Esc to clear</span>
+				<svg
+					viewBox="0 0 20 20"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.5"
+					aria-hidden="true"
+					class="size-5"
+				>
+					<path d="m6 6 8 8M14 6l-8 8" stroke-linecap="round" />
+				</svg>
+			</button>
 		</div>
-	</div>
+	</aside>
 {/if}
 
 <div dir="rtl" lang="fa" class="mb-10 flex justify-center">
