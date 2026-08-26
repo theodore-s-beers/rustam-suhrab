@@ -10,12 +10,17 @@
 	let tooltipPos = $state({ top: 0, left: 0 });
 
 	function handleClick(event: Event, line: ReturnLine) {
-		const target = event.currentTarget as HTMLDivElement;
+		const target = event.currentTarget as HTMLButtonElement;
 		const rect = target.getBoundingClientRect();
+		const tooltipHalfWidth = 128;
+		const tooltipMargin = 8;
+		const desiredLeft = rect.left + window.scrollX + rect.width / 2;
+		const minLeft = window.scrollX + tooltipHalfWidth + tooltipMargin;
+		const maxLeft = window.scrollX + window.innerWidth - tooltipHalfWidth - tooltipMargin;
 
 		tooltipPos = {
 			top: rect.bottom + window.scrollY + 6,
-			left: window.innerWidth / 2 - 24,
+			left: Math.min(Math.max(desiredLeft, minLeft), Math.max(minLeft, maxLeft)),
 		};
 
 		selectedLine = selectedLine === line ? null : line;
@@ -69,8 +74,33 @@
 	}}
 />
 
+{#snippet detailsButton(line: ReturnLine)}
+	<button
+		type="button"
+		onclick={(event) => handleClick(event, line)}
+		aria-label="Show line details"
+		aria-expanded={selectedLine === line}
+		aria-controls="line-details"
+		title="Show line details"
+		class="flex size-5 shrink-0 items-center justify-center self-center rounded-full text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500 aria-expanded:bg-gray-200 aria-expanded:text-gray-700"
+	>
+		<svg
+			viewBox="0 0 20 20"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="1.5"
+			aria-hidden="true"
+			class="size-4"
+		>
+			<circle cx="10" cy="10" r="7.5" />
+			<path d="M10 9v5M10 6h.01" stroke-linecap="round" />
+		</svg>
+	</button>
+{/snippet}
+
 {#if selectedLine}
 	<div
+		id="line-details"
 		role="tooltip"
 		style="top: {tooltipPos.top}px; left: {tooltipPos.left}px"
 		class="absolute z-10 w-64 -translate-x-1/2 rounded-md border border-gray-600 bg-gray-200 px-2.5 py-2 font-sans text-sm"
@@ -96,71 +126,24 @@
 	</div>
 {/if}
 
-<div class="flex justify-center">
-	<div
-		role="button"
-		tabindex="0"
-		onclick={(e) => handleClick(e, lines[0])}
-		onkeydown={(e) => {
-			if (e.key === "Enter" || e.key === " ") {
-				e.preventDefault();
-				handleClick(e, lines[0]);
-			}
-		}}
-		class="mr-10 mb-10 text-4xl"
-	>
-		{lines[0].headingText}
-	</div>
+<div dir="rtl" lang="fa" class="mb-10 flex justify-center">
+	<div class="text-4xl">{lines[0].headingText}</div>
 </div>
 
 <div dir="rtl" lang="fa" class="flex flex-col place-items-center gap-4 text-lg">
 	{#each lines as line, i (`${line.volumeNumber}-${line.pageNumber}-${line.numberWithinPage}`)}
 		{#if line.isHeading && i > 0}
-			<div
-				role="button"
-				tabindex="0"
-				onclick={(e) => handleClick(e, line)}
-				onkeydown={(e) => {
-					if (e.key === "Enter" || e.key === " ") {
-						e.preventDefault();
-						handleClick(e, line);
-					}
-				}}
-				class="mt-4 mr-10 mb-6 text-3xl"
-			>
-				{line.headingText}
-			</div>
+			<div class="mt-4 mb-6 text-3xl">{line.headingText}</div>
 		{:else if i > 0}
 			<div class="flex gap-2">
 				<div class="w-12">{line.numberListed?.toLocaleString("fa", { useGrouping: false })}</div>
-				<div
-					role="button"
-					tabindex="0"
-					onclick={(e) => handleClick(e, line)}
-					onkeydown={(e) => {
-						if (e.key === "Enter" || e.key === " ") {
-							e.preventDefault();
-							handleClick(e, line);
-						}
-					}}
-					class="ml-14 w-64 font-medium [text-align-last:justify]"
-				>
+				<div class="ml-14 w-64 font-medium [text-align-last:justify]">
 					{line.hemistichOne}
 				</div>
-				<div
-					role="button"
-					tabindex="0"
-					onclick={(e) => handleClick(e, line)}
-					onkeydown={(e) => {
-						if (e.key === "Enter" || e.key === " ") {
-							e.preventDefault();
-							handleClick(e, line);
-						}
-					}}
-					class="w-64 font-medium [text-align-last:justify]"
-				>
+				<div class="w-64 font-medium [text-align-last:justify]">
 					{line.hemistichTwo}
 				</div>
+				{@render detailsButton(line)}
 			</div>
 		{/if}
 	{/each}
