@@ -10,3 +10,14 @@ export interface ReturnLine {
 	hemistichOne?: string;
 	hemistichTwo?: string;
 }
+
+export interface DictionaryEntry {
+	id: number;
+	page: number;
+	lang: string;
+	headword_full: string;
+	headword_persian: string;
+	abjad: number;
+	headword_latin: string;
+	definitions: string;
+}
