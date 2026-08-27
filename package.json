@@ -10,6 +10,7 @@
 		"deploy": "pnpm run build && gh-pages -td build",
 		"dev": "vite dev",
 		"format": "prettier --write .",
+		"knip": "knip",
 		"lint": "prettier --check . && eslint .",
 		"prepare": "svelte-kit sync || echo ''",
 		"preview": "vite preview"
@@ -27,6 +28,7 @@
 		"eslint-plugin-svelte": "^3.23.0",
 		"gh-pages": "^6.3.0",
 		"globals": "^17.11.0",
+		"knip": "^6.32.3",
 		"prettier": "^3.9.6",
 		"prettier-plugin-svelte": "^4.1.1",
 		"prettier-plugin-tailwindcss": "^0.8.1",
