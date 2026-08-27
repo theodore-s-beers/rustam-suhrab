@@ -236,7 +236,7 @@
 		aria-expanded={isSelected}
 		aria-controls="line-details"
 		title={isSelected ? "Hide line details" : "Show line details"}
-		class="ms-0.5 flex size-5 shrink-0 cursor-pointer items-center justify-center self-center rounded-full text-gray-400 transition-[color,background-color,box-shadow] hover:bg-gray-200 hover:text-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500 aria-expanded:bg-blue-100 aria-expanded:text-blue-700 aria-expanded:shadow-[0_0_5px_1px_rgba(147,197,253,0.5)] aria-expanded:hover:bg-blue-100 aria-expanded:hover:text-blue-700"
+		class="mt-2 flex size-8 shrink-0 cursor-pointer items-center justify-center self-center rounded-full text-gray-400 transition-[color,background-color,box-shadow] hover:bg-gray-200 hover:text-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500 aria-expanded:bg-blue-100 aria-expanded:text-blue-700 aria-expanded:shadow-[0_0_5px_1px_rgba(147,197,253,0.5)] aria-expanded:hover:bg-blue-100 aria-expanded:hover:text-blue-700 md:ms-0.5 md:mt-0 md:size-5"
 	>
 		<svg
 			viewBox="0 0 20 20"
@@ -398,23 +398,40 @@
 {/if}
 
 <div dir="rtl" lang="fa" class="mb-10 flex justify-center">
-	<div class="mr-6 text-4xl">{lines[0].headingText}</div>
+	<div class="text-4xl md:mr-6">{lines[0].headingText}</div>
 </div>
 
 <div dir="rtl" lang="fa" class="flex flex-col place-items-center gap-4 text-lg">
 	{#each lines as line, i (getLineKey(line))}
 		{#if line.isHeading && i > 0}
-			<div class="my-6 mr-6 text-3xl">{line.headingText}</div>
+			<div class="my-6 text-3xl md:mr-6">{line.headingText}</div>
 		{:else if i > 0}
-			<div class="flex gap-2">
-				<div class="w-12">{line.numberListed?.toLocaleString("fa", { useGrouping: false })}</div>
-				<div data-dictionary-text class="ml-12 w-64 font-medium [text-align-last:justify]">
+			<div class="flex w-full max-w-xl flex-col md:w-auto md:max-w-none md:flex-row md:gap-2">
+				{#if line.numberListed}
+					<div
+						class="mb-2 text-center text-gray-500 md:mb-0 md:w-12 md:text-start md:text-gray-950"
+					>
+						{line.numberListed.toLocaleString("fa", { useGrouping: false })}
+					</div>
+				{:else}
+					<div class="hidden md:block md:w-12"></div>
+				{/if}
+				<div
+					data-dictionary-text
+					class="text-center font-medium md:ml-12 md:w-64 md:text-right md:[text-align-last:justify]"
+				>
 					{line.hemistichOne}
 				</div>
-				<div data-dictionary-text class="w-64 font-medium [text-align-last:justify]">
+				<div
+					data-dictionary-text
+					class="mt-1 text-center font-medium md:mt-0 md:w-64 md:text-right md:[text-align-last:justify]"
+				>
 					{line.hemistichTwo}
 				</div>
 				{@render detailsButton(line)}
+				{#if lines[i + 1] && !lines[i + 1].isHeading}
+					<hr aria-hidden="true" class="mt-4 w-full border-0 border-t border-gray-200 md:hidden" />
+				{/if}
 			</div>
 		{/if}
 	{/each}
