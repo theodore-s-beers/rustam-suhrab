@@ -398,13 +398,17 @@
 {/if}
 
 <div dir="rtl" lang="fa" class="mb-10 flex justify-center">
-	<div class="text-4xl md:mr-6">{lines[0].headingText}</div>
+	<div class="text-center text-[40px]/[1.3] md:mr-6 md:text-right md:text-4xl">
+		{lines[0].headingText}
+	</div>
 </div>
 
-<div dir="rtl" lang="fa" class="flex flex-col place-items-center gap-4 text-lg">
+<div dir="rtl" lang="fa" class="flex flex-col place-items-center gap-4 text-xl md:text-lg">
 	{#each lines as line, i (getLineKey(line))}
 		{#if line.isHeading && i > 0}
-			<div class="my-6 text-3xl md:mr-6">{line.headingText}</div>
+			<div class="my-6 text-center text-[32px]/[1.3] md:mr-6 md:text-right md:text-3xl">
+				{line.headingText}
+			</div>
 		{:else if i > 0}
 			<div class="flex w-full max-w-xl flex-col md:w-auto md:max-w-none md:flex-row md:gap-2">
 				{#if line.numberListed}
