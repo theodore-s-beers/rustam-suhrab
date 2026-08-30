@@ -16,7 +16,7 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"bekesh": "^0.1.0"
+		"bekesh": "^0.1.1"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.1.0",

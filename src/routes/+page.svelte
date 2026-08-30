@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { justifyHemistich } from "$lib/justify-hemistich";
+	import { justifyVerse } from "$lib/justify-verse";
 	import type { DictionaryEntry, ReturnLine } from "$lib/types";
 	import snapshotLines from "$lib/snapshot.json";
 	import { SvelteMap, SvelteURLSearchParams } from "svelte/reactivity";
@@ -412,7 +412,13 @@
 				{line.headingText}
 			</div>
 		{:else if i > 0}
-			<div class="flex w-full max-w-xl flex-col md:w-auto md:max-w-none md:flex-row md:gap-2">
+			<div
+				use:justifyVerse={{
+					first: line.hemistichOne ?? "",
+					second: line.hemistichTwo ?? "",
+				}}
+				class="flex w-full max-w-xl flex-col md:w-auto md:max-w-none md:flex-row md:gap-2"
+			>
 				{#if line.numberListed}
 					<div
 						class="mb-2 text-center text-gray-500 md:mb-0 md:w-12 md:text-start md:text-gray-950"
@@ -424,14 +430,14 @@
 				{/if}
 				<div
 					data-dictionary-text
-					use:justifyHemistich={line.hemistichOne ?? ""}
+					data-hemistich="first"
 					class="text-center font-medium md:ml-12 md:w-64 md:text-right md:[text-align-last:justify]"
 				>
 					{line.hemistichOne}
 				</div>
 				<div
 					data-dictionary-text
-					use:justifyHemistich={line.hemistichTwo ?? ""}
+					data-hemistich="second"
 					class="mt-1 text-center font-medium md:mt-0 md:w-64 md:text-right md:[text-align-last:justify]"
 				>
 					{line.hemistichTwo}
