@@ -1,1 +1,0 @@
-import{N as e,Q as t,X as n,_ as r,d as i,h as a}from"../chunks/CHcWE7Uu.js";import"../chunks/xihTtKlq.js";var o=t({prerender:()=>!0}),s=r(`<div class="mx-auto p-4 pb-28 font-persian md:pb-20"><!></div>`);function c(t,r){var o=s(),c=e(o);i(c,()=>r.children),n(o),a(t,o)}export{c as component,o as universal};
