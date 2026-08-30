@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
+	import { justifyHemistich } from "$lib/justify-hemistich";
 	import type { DictionaryEntry, ReturnLine } from "$lib/types";
 	import snapshotLines from "$lib/snapshot.json";
 	import { SvelteMap, SvelteURLSearchParams } from "svelte/reactivity";
@@ -68,6 +69,7 @@
 	function normalizeDictionaryWord(input: string) {
 		return input
 			.normalize("NFC")
+			.replaceAll("ـ", "")
 			.replaceAll("ك", "ک")
 			.replace(/[ىي]/gu, "ی")
 			.replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/gu, "")
@@ -422,12 +424,14 @@
 				{/if}
 				<div
 					data-dictionary-text
+					use:justifyHemistich={line.hemistichOne ?? ""}
 					class="text-center font-medium md:ml-12 md:w-64 md:text-right md:[text-align-last:justify]"
 				>
 					{line.hemistichOne}
 				</div>
 				<div
 					data-dictionary-text
+					use:justifyHemistich={line.hemistichTwo ?? ""}
 					class="mt-1 text-center font-medium md:mt-0 md:w-64 md:text-right md:[text-align-last:justify]"
 				>
 					{line.hemistichTwo}

@@ -15,6 +15,9 @@
 		"prepare": "svelte-kit sync || echo ''",
 		"preview": "vite preview"
 	},
+	"dependencies": {
+		"bekesh": "^0.1.0"
+	},
 	"devDependencies": {
 		"@eslint/compat": "^2.1.0",
 		"@eslint/js": "^10.0.1",
