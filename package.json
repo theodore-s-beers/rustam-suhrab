@@ -16,7 +16,7 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"bekesh": "^0.1.1"
+		"bekesh": "^0.1.2"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.1.0",
@@ -25,17 +25,17 @@
 		"@sveltejs/kit": "^2.70.3",
 		"@sveltejs/vite-plugin-svelte": "^7.3.0",
 		"@tailwindcss/vite": "^4.3.3",
-		"@types/node": "^26.3.0",
+		"@types/node": "^26.4.0",
 		"eslint": "^10.9.1",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^3.23.0",
 		"gh-pages": "^6.3.0",
 		"globals": "^17.11.0",
-		"knip": "^6.32.3",
+		"knip": "^6.33.0",
 		"prettier": "^3.9.6",
 		"prettier-plugin-svelte": "^4.1.1",
 		"prettier-plugin-tailwindcss": "^0.8.1",
-		"svelte": "^5.56.10",
+		"svelte": "^5.57.0",
 		"svelte-check": "^4.7.6",
 		"tailwindcss": "^4.3.3",
 		"typescript": "^6.0.3",
