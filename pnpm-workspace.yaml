@@ -1,4 +1,4 @@
 minimumReleaseAgeExclude:
-  - bekesh@0.1.1 || 0.1.2
+  - bekesh
 overrides:
   cookie@<0.7.0: ^0.7.0
