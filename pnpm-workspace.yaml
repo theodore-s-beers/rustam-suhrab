@@ -1,3 +1,5 @@
+allowBuilds:
+  bekesh: true
 minimumReleaseAgeExclude:
   - bekesh
 overrides:
